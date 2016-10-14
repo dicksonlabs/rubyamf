@@ -28,7 +28,9 @@ end
 ActionController::Renderers.add :amf do |amf, options|
   @amf_response = amf
   @mapping_scope = options[:class_mapping_scope] || options[:mapping_scope] || nil
-  self.content_type ||= Mime::AMF
+
+  mime_amf = Rails::VERSION::MAJOR >= 5 ? Mime[:amf] : Mime::AMF
+  self.content_type ||= mime_amf
   self.response_body = " "
 end
 
